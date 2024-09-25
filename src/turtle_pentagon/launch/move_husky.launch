@@ -1,0 +1,104 @@
+<launch>
+  <!-- Argument to determine if we are in simulation -->
+  <arg name="simulation" default="true"/>
+
+  <!-- If we are simulating, launch Gazebo -->
+  <group if="$(arg simulation)">
+    <include file="$(find husky_gazebo)/launch/empty_world.launch"/>
+  </group>
+
+  <!-- Spawn 3 Husky robots with unique namespaces and positions -->
+  <!-- Husky 1 -->
+  <group ns="husky_1">
+    <!-- Load the Husky robot description -->
+    <include file="$(find husky_description)/launch/description.launch">
+      <arg name="robot_namespace" value="husky_1"/>
+    </include>
+    
+    <!-- Load the robot state publisher with a unique name -->
+    <node name="robot_state_publisher_1" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
+      <param name="tf_prefix" value="husky_1_" />
+    </node>
+    
+    <!-- Load the controllers -->
+    <rosparam command="load" file="$(find husky_control)/config/control.yaml"/>
+
+    <!-- Spawns the velocity controller and joint state publisher -->
+  <node name="controller_spawner_1" pkg="controller_manager" type="spawner" args="husky_joint_publisher husky_velocity_controller">
+    <param name="publish_cmd" value="true"/>  <!-- Publish executed velocity command -->
+    <param name="publish_rate" value="50"/>   <!-- Publication rate in Hz -->
+    <param name="publish_tf" value="true"/>   <!-- Publish odom frame on tf -->
+  </node>
+
+    <!-- Spawn Husky model in Gazebo with a unique position -->
+    <node name="spawn_husky_1" pkg="gazebo_ros" type="spawn_model" args="-urdf -model husky_1 -param robot_description -x 0 -y 0 -z 0.1" />
+
+    <!-- Use move_turtle.py for movement -->
+    <!-- <node name="move_turtle_1" pkg="turtle_pentagon" type="move_turtle.py" output="screen">
+      <param name="charge" value="100"/>
+    </node> -->
+  </group>
+
+  <!-- Husky 2 -->
+  <group ns="husky_2">
+    <!-- Load the Husky robot description -->
+    <include file="$(find husky_description)/launch/description.launch">
+      <arg name="robot_namespace" value="husky_2"/>
+    </include>
+    
+    <!-- Load the robot state publisher with a unique name -->
+    <node name="robot_state_publisher_2" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
+      <param name="tf_prefix" value="husky_2_" />
+    </node>
+    
+    <!-- Load the controllers -->
+    <rosparam command="load" file="$(find husky_control)/config/control.yaml"/>
+
+    <!-- Spawns the velocity controller and joint state publisher -->
+    <node name="controller_spawner_2" pkg="controller_manager" type="spawner" args="husky_joint_publisher husky_velocity_controller">
+      <param name="publish_cmd" value="true"/>
+      <param name="publish_rate" value="50"/>
+      <param name="publish_tf" value="true"/>
+    </node>
+    <!-- Spawn Husky model in Gazebo with a unique position -->
+    <node name="spawn_husky_2" pkg="gazebo_ros" type="spawn_model" args="-urdf -model husky_2 -param robot_description -x 2 -y 3 -z 0.1" />
+
+    <!-- Use move_turtle.py for movement -->
+    <!-- <node name="move_turtle_2" pkg="turtle_pentagon" type="move_turtle.py" output="screen">
+      <param name="charge" value="100"/>
+    </node> -->
+  </group>
+
+  <!-- Husky 3 -->
+  <group ns="husky_3">
+    <!-- Load the Husky robot description -->
+    <include file="$(find husky_description)/launch/description.launch">
+      <arg name="robot_namespace" value="husky_3"/>
+    </include>
+    
+    <!-- Load the robot state publisher with a unique name -->
+    <node name="robot_state_publisher_3" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
+      <param name="tf_prefix" value="husky_3_" />
+    </node>
+    
+    <!-- Load the controllers -->
+    <rosparam command="load" file="$(find husky_control)/config/control.yaml"/>
+
+    <!-- Spawns the velocity controller and joint state publisher -->
+    <node name="controller_spawner_3" pkg="controller_manager" type="spawner" args="husky_joint_publisher husky_velocity_controller">
+      <param name="publish_cmd" value="true"/>
+      <param name="publish_rate" value="50"/>
+      <param name="publish_tf" value="true"/>
+    </node>
+    <!-- Spawn Husky model in Gazebo with a unique position -->
+    <node name="spawn_husky_3" pkg="gazebo_ros" type="spawn_model" args="-urdf -model husky_3 -param robot_description -x 4 -y 1 -z 0.1" />
+
+    <!-- Use move_turtle.py for movement -->
+
+  </group>
+  
+    <node name="move_turtle_3" pkg="turtle_pentagon" type="move_turtle.py" output="screen">
+      <param name="charge" value="100"/>
+    </node>
+
+</launch>

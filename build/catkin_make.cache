@@ -1,0 +1,2 @@
+turtle_pentagon
+-DCATKIN_DEVEL_PREFIX=/home/shashank/wsros/devel -DCMAKE_INSTALL_PREFIX=/home/shashank/wsros/install -G Unix Makefiles

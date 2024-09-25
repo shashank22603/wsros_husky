@@ -1,0 +1,8 @@
+prefix=/home/shashank/wsros/devel
+
+Name: turtle_pentagon
+Description: Description of turtle_pentagon
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
