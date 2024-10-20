@@ -33,10 +33,7 @@
     <!-- Spawn Husky model in Gazebo with a unique position -->
     <node name="spawn_husky_1" pkg="gazebo_ros" type="spawn_model" args="-urdf -model husky_1 -param robot_description -x 0 -y 0 -z 0.1" />
 
-    <!-- Use move_turtle.py for movement -->
-    <!-- <node name="move_turtle_1" pkg="turtle_pentagon" type="move_turtle.py" output="screen">
-      <param name="charge" value="100"/>
-    </node> -->
+
   </group>
 
   <!-- Husky 2 -->
@@ -64,9 +61,7 @@
     <node name="spawn_husky_2" pkg="gazebo_ros" type="spawn_model" args="-urdf -model husky_2 -param robot_description -x 2 -y 3 -z 0.1" />
 
     <!-- Use move_turtle.py for movement -->
-    <!-- <node name="move_turtle_2" pkg="turtle_pentagon" type="move_turtle.py" output="screen">
-      <param name="charge" value="100"/>
-    </node> -->
+
   </group>
 
   <!-- Husky 3 -->
@@ -96,9 +91,20 @@
     <!-- Use move_turtle.py for movement -->
 
   </group>
-  
-    <node name="move_turtle_3" pkg="turtle_pentagon" type="move_turtle.py" output="screen">
-      <param name="charge" value="100"/>
-    </node>
+        <!-- Use move_turtle.py for movement -->
+ <node name="move_turtle_1" pkg="turtle_pentagon" type="move_turtle.py" output="screen">
+   <param name="charge" value="100"/>
+   <param name="husky_ns" value="husky_1"/>  <!-- Pass namespace to the script -->
+ </node> 
+ 
+ <node name="move_turtle_2" pkg="turtle_pentagon" type="move_turtle.py" output="screen">
+   <param name="charge" value="100"/>
+   <param name="husky_ns" value="husky_2"/>  <!-- Pass namespace to the script -->
+ </node> 
+ 
+ <node name="move_turtle_3" pkg="turtle_pentagon" type="move_turtle.py" output="screen">
+   <param name="charge" value="100"/>
+   <param name="husky_ns" value="husky_3"/>  <!-- Pass namespace to the script -->
+ </node>
 
 </launch>
